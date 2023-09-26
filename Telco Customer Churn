@@ -1,0 +1,37 @@
+#1. Find the no. of duplicate records in the churn dataframe based on the cutomerID
+column.
+duplicate_count = df.duplicated(subset=['customerID']).sum()
+print("Number of duplicate records based on customerID column:", duplicate_count)
+Number of duplicate records based on customerID column: 0
+
+---------------------------------------------------------------------------------------
+
+2. Find the no. of duplicate records in the churn dataframe based on the cutomerID
+column.
+duplicate_count = df.duplicated(subset=['customerID']).sum()
+print("Number of duplicate records based on customerID column:", duplicate_count)
+Number of duplicate records based on customerID column: 0
+
+----------------------------------------------------------------------------------------
+
+3. From the churn dataframe, what is the average monthly charge paid by a customer
+for the services he/she has signed up for?
+import pandas as pd
+average_monthly_charge = df['MonthlyCharges'].mean()
+print("Average monthly charge paid by a customer for the services :", average_monthly_charge)
+Average monthly charge paid by a customer for the services : 64.76169246059918
+
+----------------------------------------------------------------------------------------
+
+4. In the churn dataframe, under the variable Dependents how many records have
+“1@#" ?
+count = (df['Dependents'] == "1@#").sum()
+print("Number of records with 'Dependents' equal to '1@#':", count)
+Number of records with 'Dependents' equal to '1@#': 0
+
+----------------------------------------------------------------------------------------
+
+5. Find the data type of the variable tenure from the churn dataframe.
+tenure_data_type = df['tenure'].dtype
+print("Data type of 'tenure' variable:", tenure_data_type)
+Data type of 'tenure' variable: int64
