@@ -1,0 +1,113 @@
+#Program 1
+# Plot a boxplot for ͞price͟␃vs ͞cut͟␃from the dataset ͞diamond.csv͘͟␃ Which of the categories under ͞cut͟␃have the highest median price?
+import pandas as pd
+import matplotlib.pyplot as plt
+# Read the dataset
+df = pd.read_csv("diamonds.csv")
+print(df.head())
+# Create the boxplot
+plt.figure(figsize=(8, 6))
+df.boxplot(column='price', by='cut')
+plt.xlabel('Cut')
+plt.ylabel('Price')
+plt.title('Price vs Cut')
+plt.suptitle('') # Remove the default title
+plt.show()
+
+--------------------------------------------------------------------------------
+
+#Program 2
+'''Create a frequency table (one-way table) for the variable ͞cut͟ from the dataset diamond.csv͘͟ What is the frequency for
+the cut type ͞Ideal͍͟'''
+import pandas as pd
+# Read the dataset
+df = pd.read_csv("diamonds.csv")
+# Create the frequency table
+frequency_table = df['cut'].value_counts()
+# Print the frequency table
+print(frequency_table)
+# Access the frequency for the cut type "Ideal"
+ideal_frequency = frequency_table['Ideal']
+9/26/23, 7:42 PM Week3_Diamond_Dataset.ipynb - Colaboratory
+https://colab.research.google.com/drive/1vBFXrHo9h3yV-GdTA2qjj-bOcNqbqDnI#printMode=true 2/5
+print("Frequency for cut type 'Ideal':", ideal_frequency)
+
+-----------------------------------------------------------------------------------
+
+#Program 3
+# Show the subplot of the diamond carat weight distribution.
+import pandas as pd
+import matplotlib.pyplot as plt
+# Read the dataset
+df = pd.read_csv("diamonds.csv")
+print(df['carat'])
+# Create a subplot with 1 row and 2 columns
+fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+# Plot the histogram of carat weight on the first subplot
+axs[0].hist(df['carat'], bins=30, edgecolor='black')
+axs[0].set_xlabel('Carat Weight')
+axs[0].set_ylabel('Frequency')
+axs[0].set_title('Carat Weight Distribution')
+# Plot the boxplot of carat weight on the second subplot
+axs[1].boxplot(df['carat'], vert=False)
+axs[1].set_yticklabels('')
+axs[1].set_xlabel('Carat Weight')
+axs[1].set_title('Carat Weight Distribution')
+# Adjust the spacing between subplots
+plt.subplots_adjust(wspace=0.3)
+# Show the plot
+plt.show()
+
+--------------------------------------------------------------------------------------
+
+#Program 4
+# Show the subplot of diamond depth distribution.
+import pandas as pd
+import matplotlib.pyplot as plt
+# Read the dataset
+df = pd.read_csv("diamonds.csv")
+print(df['depth'])
+# Create a subplot with 1 row and 2 columns
+fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+# Plot the histogram of diamond depth on the first subplot
+axs[0].hist(df['depth'], bins=30, edgecolor='black')
+axs[0].set_xlabel('Depth')
+axs[0].set_ylabel('Frequency')
+axs[0].set_title('Diamond Depth Distribution')
+# Plot the boxplot of diamond depth on the second subplot
+axs[1].boxplot(df['depth'], vert=False)
+axs[1].set_yticklabels('')
+axs[1].set_xlabel('Depth')
+axs[1].set_title('Diamond Depth Distribution')
+# Adjust the spacing between subplots
+plt.subplots_adjust(wspace=0.4)
+# Show the plot
+plt.show()
+
+-----------------------------------------------------------------------------------------
+
+#Program 5
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+9/26/23, 7:42 PM Week3_Diamond_Dataset.ipynb - Colaboratory
+https://colab.research.google.com/drive/1vBFXrHo9h3yV-GdTA2qjj-bOcNqbqDnI#printMode=true 4/5
+# Read the dataset
+df = pd.read_csv("diamonds.csv")
+# Define the input features (X) and target variable (y)
+X = df[['carat', 'cut', 'clarity', 'depth']]
+y = df['price']
+# Convert categorical variables to numerical using one-hot encoding
+X_encoded = pd.get_dummies(X)
+print("X_encoded=",X_encoded)
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42)
+# Build the linear regression model
+model = LinearRegression()
+model.fit(X_train, y_train)
+# Make predictions on the testing set
+y_pred = model.predict(X_test)
+# Calculate the accuracy (R-squared score)
+accuracy = r2_score(y_test, y_pred)
+print("Accuracy:", accuracy)
