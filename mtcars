@@ -1,0 +1,95 @@
+#Program 1 - Read the dataset.
+import pandas as pd
+import matplotlib.pyplot as plt
+df=pd.read_csv('mtcars.csv')
+print(df)
+
+-------------------------------------------------------------------------------
+
+#program 2 - Find the head of the dataset.
+df.head()
+
+-------------------------------------------------------------------------------
+
+#Program 3 - Find the Datatype of Dataset (each column).
+datatypes=df.dtypes
+print(datatypes)
+
+-------------------------------------------------------------------------------
+
+#Program 4 - From the given dataset "mtcars.csv͕͛" plot a histogram
+# to check the frequency distribution of the variable ͚"mpg͛" (Miles per gallon).
+# Extract the 'mpg' column
+mpg_data = df['mpg']
+# Plot the histogram
+plt.hist(mpg_data, bins='auto', edgecolor='black')
+# Set labels and title
+plt.xlabel('Miles per Gallon (mpg)')
+plt.ylabel('Frequency')
+plt.title('Histogram of MPG Distribution')
+# Display the histogram
+plt.show()
+
+---------------------------------------------------------------------------------
+
+#Program 5 - Find the highest frequency of interval.
+mpg_data=df['mpg']
+print(mpg_data.mode)
+
+# Find the highest frequency of interval.
+# most frequent value in Team
+df['mpg'].value_counts().idxmax()
+21.0
+---------------------------------------------------------------------------------
+
+#Program 6
+#Which can be inferred from scatter plot of mpg͛ (Miles per gallon) vs ͚
+# wt͛ (Weight of car) from the dataset mtcars.csv.
+"""Negative correlation: The scatter plot shows a negative relationship between "mpg" and "wt."
+As the weight of the car increases, the miles per gallon tends to decrease.
+This suggests that lighter cars tend to have better fuel efficiency."""
+# Calculate the correlation between "mpg" and "wt"
+correlation = df['mpg'].corr(df['wt'])
+# Check if the correlation is negative
+if correlation < 0:
+print("There is a negative correlation between 'mpg' and 'wt' in the mtcars dataset.")
+else:
+print("There is no negative correlation between 'mpg' and 'wt' in the mtcars dataset.")
+# Create the scatter plot
+plt.scatter(df['wt'], df['mpg'])
+plt.xlabel('Weight of Car')
+plt.ylabel('Miles per Gallon')
+# Set title and display the plot
+plt.title('Scatter Plot of mpg vs wt')
+plt.show()
+
+----------------------------------------------------------------------------------
+
+"""Outliers: The scatter plot may reveal outliers, which are data points that
+deviate significantly from the general trend.
+Outliers could represent cars with unusual characteristics,
+such as exceptionally low or high fuel efficiency given their weight."""
+
+# Calculate z-scores for "mpg" and "wt"
+df = pd.read_csv('mtcars.csv')
+z_scores_mpg = (df['mpg'] - df['mpg'].mean()) / df['mpg'].std()
+z_scores_wt = (df['wt'] - df['wt'].mean()) / df['wt'].std()
+# Set the threshold for outlier detection
+z_score_threshold = 2
+# Find outliers
+outliers_mpg = df[z_scores_mpg.abs() > z_score_threshold]
+outliers_wt = df[z_scores_wt.abs() > z_score_threshold]
+# Create the scatter plot
+plt.scatter(df['wt'], df['mpg'])
+plt.xlabel('Weight of Car')
+plt.ylabel('Miles per Gallon')
+# Plot the outliers
+plt.scatter(outliers_wt['wt'], outliers_wt['mpg'], color='red', label='Outliers (wt)')
+plt.scatter(outliers_mpg['wt'], outliers_mpg['mpg'], color='blue', label='Outliers (mpg)')
+# Set labels and title
+plt.xlabel('Weight of Car')
+plt.ylabel('Miles per Gallon')
+plt.title('Scatter Plot of mpg vs wt')
+plt.legend()
+# Display the plot
+plt.show()
